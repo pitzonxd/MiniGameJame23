@@ -8,7 +8,9 @@
 #include "CPPGameInstance.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
-#include "Components/SceneComponent.h"
+#include "Components/BoxComponent.h"
+#include "GridSpawner.h"
+#include "Kismet/GameplayStatics.h"
 #include "SocketBase.generated.h"
 
 UCLASS()

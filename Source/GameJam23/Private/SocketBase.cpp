@@ -19,8 +19,11 @@ ASocketBase::ASocketBase()
 	Border3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Border3"));
 	Border4 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Border4"));
 
-	auto SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Base"));
-	RootComponent = SceneComponent;
+	UBoxComponent* boxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Collision Box"));
+	boxCollision->SetBoxExtent({1000,1000,50});
+	boxCollision->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	boxCollision->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Block);
+	RootComponent = boxCollision;
 
 	Border1->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	Border2->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
@@ -75,6 +78,8 @@ void ASocketBase::NotifyActorOnClicked(FKey ButtonPressed)
 			transform.SetLocation(location);
 			placedRoom = GetWorld()->SpawnActor<ARoom>(gameInstance->selectedRoom, transform);
 			//DoesPathExists function
+			AGridSpawner* gridSpawner = (AGridSpawner*)UGameplayStatics::GetActorOfClass(GetWorld(), AGridSpawner::StaticClass());
+			
 		}
 	}
 }
@@ -88,6 +93,7 @@ void ASocketBase::NotifyActorBeginCursorOver()
 			location.Z += 150;
 			transform.SetLocation(location);
 			hoverRoom = GetWorld()->SpawnActor<ARoom>(gameInstance->selectedRoom, transform);
+			hoverRoom->SetActorEnableCollision(false);
 		}
 	}
 }

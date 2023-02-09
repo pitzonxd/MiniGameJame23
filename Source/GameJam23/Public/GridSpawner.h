@@ -25,8 +25,14 @@ protected:
 
 private:
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
-	int32 RowNumber;
+	TSubclassOf<ARoom> StartRoom;
 
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
-	int32 ColumnNumber;
+	TSubclassOf<ARoom> EndRoom;
+
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true")) 
+	int32 RowNumber = 0;
+
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	int32 ColumnNumber = 0;
 };
