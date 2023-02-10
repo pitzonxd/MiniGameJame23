@@ -11,6 +11,11 @@ ARoom::ARoom()
 
 }
 
+void ARoom::Initialize(FVector2D index)
+{
+	gridIndex = index;
+}
+
 // Called when the game starts or when spawned
 void ARoom::BeginPlay()
 {

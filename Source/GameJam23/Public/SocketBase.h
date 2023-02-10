@@ -5,13 +5,14 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Math/Vector2D.h"
-#include "CPPGameInstance.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Components/BoxComponent.h"
-#include "GridSpawner.h"
 #include "Kismet/GameplayStatics.h"
 #include "SocketBase.generated.h"
+
+class UCPPGameInstance;
+class ARoom;
 
 UCLASS()
 class GAMEJAM23_API ASocketBase : public AActor

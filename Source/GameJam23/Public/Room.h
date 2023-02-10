@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Math/Vector2D.h"
 #include "Room.generated.h"
 
 UCLASS()
@@ -14,6 +15,8 @@ class GAMEJAM23_API ARoom : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ARoom();
+	void Initialize(FVector2D index);
+	FVector2D gridIndex = {0.0f, 0.0f};
 
 protected:
 	// Called when the game starts or when spawned

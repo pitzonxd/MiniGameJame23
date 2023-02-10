@@ -4,12 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
-#include "GridSpawner.h"
 #include "BlueprintFuncLibTools.generated.h"
 
-/**
- * 
- */
+class ASocketBase;
+
 UCLASS()
 class GAMEJAM23_API UBlueprintFuncLibTools : public UBlueprintFunctionLibrary
 {
@@ -17,6 +15,5 @@ class GAMEJAM23_API UBlueprintFuncLibTools : public UBlueprintFunctionLibrary
 private:
 	bool _doesPathExists();
 public:
-	UFUNCTION(BlueprintCallable, Category = "SetUp")
-	static bool doesPathExists(AGridSpawner* spawner);
+	static bool doesPathExists(TArray<TArray<ASocketBase*>> socketGrid);
 };

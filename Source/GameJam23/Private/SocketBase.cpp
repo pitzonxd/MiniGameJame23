@@ -2,6 +2,9 @@
 
 
 #include "SocketBase.h"
+#include "CPPGameInstance.h"
+#include "BlueprintFuncLibTools.h"
+#include "Room.h"
 
 void ASocketBase::Initialize(double X, double Y)
 {
@@ -76,9 +79,11 @@ void ASocketBase::NotifyActorOnClicked(FKey ButtonPressed)
 			FVector location = transform.GetLocation();
 			location.Z += 150;
 			transform.SetLocation(location);
-			placedRoom = GetWorld()->SpawnActor<ARoom>(gameInstance->selectedRoom, transform);
+			placedRoom = GetWorld()->SpawnActorDeferred<ARoom>(gameInstance->selectedRoom, transform);
+			placedRoom->Initialize(socketIndex);
+			placedRoom->FinishSpawning(transform);
 			//DoesPathExists function
-			AGridSpawner* gridSpawner = (AGridSpawner*)UGameplayStatics::GetActorOfClass(GetWorld(), AGridSpawner::StaticClass());
+			gameInstance->pathExists = UBlueprintFuncLibTools::doesPathExists(gameInstance->socketGrid);
 			
 		}
 	}

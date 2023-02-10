@@ -2,6 +2,10 @@
 
 
 #include "GridSpawner.h"
+#include "SocketBase.h"
+#include "Math/Vector2D.h"
+#include "CPPGameInstance.h"
+#include "Room.h"
 
 // Sets default values
 AGridSpawner::AGridSpawner()
@@ -32,11 +36,16 @@ void AGridSpawner::BeginPlay()
 	int32 rng = FMath::RandRange(0, RowNumber - 1);
 	FTransform transform = socketGrid[rng][0]->GetActorTransform();
 	transform.SetLocation({ transform.GetLocation().X, transform.GetLocation().Y, transform.GetLocation().Z + 150});
-	socketGrid[rng][0]->placedRoom = GetWorld()->SpawnActor<ARoom>(StartRoom, transform);
+	socketGrid[rng][0]->placedRoom = GetWorld()->SpawnActorDeferred<ARoom>(StartRoom, transform);
+	socketGrid[rng][0]->placedRoom->Initialize(FVector2D( rng, 0 ));
+	socketGrid[rng][0]->placedRoom->FinishSpawning(transform);
 
 	rng = FMath::RandRange(0, RowNumber - 1);
 	transform = socketGrid[rng][ColumnNumber - 1]->GetActorTransform();
 	transform.SetLocation({ transform.GetLocation().X, transform.GetLocation().Y, transform.GetLocation().Z + 150 });
-	socketGrid[FMath::RandRange(0, RowNumber - 1)][ColumnNumber-1]->placedRoom = GetWorld()->SpawnActor<ARoom>(EndRoom, transform);
-	
+	socketGrid[rng][ColumnNumber - 1]->placedRoom = GetWorld()->SpawnActorDeferred<ARoom>(EndRoom, transform);
+	socketGrid[rng][ColumnNumber - 1]->placedRoom->Initialize(FVector2D(rng, ColumnNumber-1));
+	socketGrid[rng][ColumnNumber - 1]->placedRoom->FinishSpawning(transform);
+
+	Cast<UCPPGameInstance>(GetGameInstance())->socketGrid = socketGrid;
 }

@@ -3,10 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "SocketArray.h"
-#include "SocketBase.h"
 #include "GameFramework/Actor.h"
 #include "GridSpawner.generated.h"
+
+class ASocketBase;
+class ARoom;
 
 UCLASS(BlueprintType)
 class GAMEJAM23_API AGridSpawner : public AActor

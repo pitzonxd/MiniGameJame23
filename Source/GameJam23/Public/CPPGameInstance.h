@@ -4,18 +4,21 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
-#include "Room.h"
 #include "CPPGameInstance.generated.h"
 
-/**
- * 
- */
+class ARoom;
+class ASocketBase;
+
 UCLASS()
 class GAMEJAM23_API UCPPGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 	
 public:
+	bool destructionMode = false;
+
+	TArray<TArray<ASocketBase*>> socketGrid;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool pathExists = false;
 
