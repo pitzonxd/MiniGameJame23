@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "Math/Vector2D.h"
 #include "CPPGameInstance.generated.h"
 
 class ARoom;
@@ -18,6 +19,8 @@ public:
 	bool destructionMode = false;
 
 	TArray<TArray<ASocketBase*>> socketGrid;
+	FVector2D startIndex;
+	FVector2D endIndex;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool pathExists = false;

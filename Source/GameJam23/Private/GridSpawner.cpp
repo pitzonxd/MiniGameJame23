@@ -33,12 +33,15 @@ void AGridSpawner::BeginPlay()
 		}
 	}
 	//Spawn Start and End Room
+	UCPPGameInstance* gameInstance = Cast<UCPPGameInstance>(GetGameInstance());
+
 	int32 rng = FMath::RandRange(0, RowNumber - 1);
 	FTransform transform = socketGrid[rng][0]->GetActorTransform();
 	transform.SetLocation({ transform.GetLocation().X, transform.GetLocation().Y, transform.GetLocation().Z + 150});
 	socketGrid[rng][0]->placedRoom = GetWorld()->SpawnActorDeferred<ARoom>(StartRoom, transform);
 	socketGrid[rng][0]->placedRoom->Initialize(FVector2D( rng, 0 ));
 	socketGrid[rng][0]->placedRoom->FinishSpawning(transform);
+	gameInstance->startIndex = FVector2D(rng, 0);
 
 	rng = FMath::RandRange(0, RowNumber - 1);
 	transform = socketGrid[rng][ColumnNumber - 1]->GetActorTransform();
@@ -46,6 +49,7 @@ void AGridSpawner::BeginPlay()
 	socketGrid[rng][ColumnNumber - 1]->placedRoom = GetWorld()->SpawnActorDeferred<ARoom>(EndRoom, transform);
 	socketGrid[rng][ColumnNumber - 1]->placedRoom->Initialize(FVector2D(rng, ColumnNumber-1));
 	socketGrid[rng][ColumnNumber - 1]->placedRoom->FinishSpawning(transform);
+	gameInstance->endIndex = FVector2D(rng, ColumnNumber - 1);
 
-	Cast<UCPPGameInstance>(GetGameInstance())->socketGrid = socketGrid;
+	gameInstance->socketGrid = socketGrid;
 }

@@ -4,6 +4,8 @@
 #include "SocketBase.h"
 #include "CPPGameInstance.h"
 #include "BlueprintFuncLibTools.h"
+#include "Kismet/KismetStringLibrary.h"
+#include "Engine/GameEngine.h"
 #include "Room.h"
 
 void ASocketBase::Initialize(double X, double Y)
@@ -83,8 +85,7 @@ void ASocketBase::NotifyActorOnClicked(FKey ButtonPressed)
 			placedRoom->Initialize(socketIndex);
 			placedRoom->FinishSpawning(transform);
 			//DoesPathExists function
-			gameInstance->pathExists = UBlueprintFuncLibTools::doesPathExists(gameInstance->socketGrid);
-			
+			gameInstance->pathExists = UBlueprintFuncLibTools::doesPathExists(gameInstance);
 		}
 	}
 }
